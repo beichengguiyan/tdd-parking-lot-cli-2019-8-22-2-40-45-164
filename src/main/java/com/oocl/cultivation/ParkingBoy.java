@@ -1,25 +1,42 @@
+    
 package com.oocl.cultivation;
 
 public class ParkingBoy {
 
-    private final ParkingLot parkingLot;
+    private ParkingLot parkingLot;
     private String lastErrorMessage;
 
-    public ParkingBoy(ParkingLot parkingLot) {
-        this.parkingLot = parkingLot;
-    }
+    public ParkingBoy(ParkingLot parkingLot) {this.parkingLot = parkingLot; }
 
     public ParkingTicket park(Car car) {
-        // TODO: Please implement the method
-        throw new RuntimeException("Not implemented");
+    	if (parkingLot.isExistCapacity()){
+			lastErrorMessage = null;
+			return parkingLot.park(car);
+		}else {
+			lastErrorMessage = "The parking lot is full.";
+    		return null;
+		}
+
     }
 
     public Car fetch(ParkingTicket ticket) {
-        // TODO: Please implement the method
-        throw new RuntimeException("Not implemented");
+    	if(ticket != null) {
+        	if (!parkingLot.isExistCar(ticket)) {
+        		lastErrorMessage = "Unrecognized parking ticket.";
+        		return null;
+        	}else {
+        		lastErrorMessage = "";
+        		return parkingLot.fetch(ticket);
+        	}
+    	}else {
+    		lastErrorMessage = "Please provide your parking ticket.";
+			return null;
+		}
+
     }
 
     public String getLastErrorMessage() {
         return lastErrorMessage;
     }
+
 }
